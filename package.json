@@ -1,0 +1,7 @@
+{
+  "type" : "module",
+  "start": "node app.js",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
