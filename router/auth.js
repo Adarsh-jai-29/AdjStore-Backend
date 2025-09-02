@@ -52,5 +52,10 @@ authRouter.post("/login", async (req, res) => {
   res.send("Login endpoint");
 });
 
+authRouter.post("/logout", (req, res) => {
+  res.clearCookie('token');
+  res.status(200).json({ message: "Logout Successful" });
+});
+
 
 export default authRouter;
