@@ -1,7 +1,7 @@
 import express from 'express'
 const app = express()
 import mongoose from 'mongoose';
-import authRouter from './router/auth';
+import authRouter from './router/auth.js';
 
 const PORT = process.env.PORT || 3001
 
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001
 
 // }));
 
-app.use(cors());
+// app.use(cors());
 
 
 app.get('/', (req, res) => {
