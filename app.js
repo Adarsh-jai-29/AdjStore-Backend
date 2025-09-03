@@ -2,6 +2,9 @@ import express from 'express'
 const app = express()
 import mongoose from 'mongoose';
 import authRouter from './router/auth.js';
+import profileRouter from './router/profile.js';
+
+import cookieParser from 'cookie-parser';
 
 const PORT = process.env.PORT || 3001
 
@@ -13,6 +16,9 @@ const PORT = process.env.PORT || 3001
 
 // app.use(cors());
 
+// app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -20,6 +26,7 @@ app.get('/', (req, res) => {
 
 app.use(express.json());
 app.use("/auth", authRouter);
+app.use("/profile", profileRouter);
 
 async function main() {
   try {

@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 authRouter.post("/sign-up", async(req, res) => {
    const { email, password, firstName, lastName, mobile } = req.body;
 
-    try {
+  try {
   // Check if user already exists
   const existingUser = await UserModel
     .findOne({ $or: [{ email }, { mobile }] });
@@ -23,11 +23,10 @@ authRouter.post("/sign-up", async(req, res) => {
   await newUser.save();
 
   res.status(200).json({ msg: "User saved successfully", newUser });
-  res.send("Register endpoint");
 }
 catch (error) {
   console.error("Error during user registration:", error);
-  res.status(500).json({ msg: "Internal server error" });
+ return res.status(500).json({ msg: "Internal server error" });
 }
 })
 
@@ -45,11 +44,9 @@ authRouter.post("/login", async (req, res) => {
     return res.status(401).json({ message: "Invalid Password" });
     }
     
-    const token = jwt.sign({ _id : user._id }, process.env.SECRET_KEY || 'adjStore', { expiresIn: '1h' });
+    const token = jwt.sign({ _id : user._id }, process.env.SECRET_KEY || 'adjStore', { expiresIn: '24h' });
     res.cookie('token', token, { httpOnly: true });
     res.status(200).json({ message: "Login Successful", user});
-
-  res.send("Login endpoint");
 });
 
 authRouter.post("/logout", (req, res) => {
