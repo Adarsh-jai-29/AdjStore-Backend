@@ -35,7 +35,7 @@ authRouter.post("/login", async (req, res) => {
 
   const user = await UserModel.findOne({email})
   if (!user){
-    return res.send('User not found')
+    return res.status(401).json({message:'User not found'})
   }
   
   const isPasswordMatched = await bcrypt.compare(password, user.password);  
@@ -52,6 +52,7 @@ authRouter.post("/login", async (req, res) => {
 authRouter.post("/logout", (req, res) => {
   res.clearCookie('token');
   res.status(200).json({ message: "Logout Successful" });
+  return res.redirect('/');
 });
 
 
