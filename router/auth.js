@@ -45,8 +45,8 @@ authRouter.post("/login", async (req, res) => {
     }
     
     const token = jwt.sign({ _id : user._id }, process.env.SECRET_KEY || 'adjStore', { expiresIn: '24h' });
-    res.cookie('token', token);
-    res.status(200).json({ message: "Login Successful", user});
+    res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'Lax', maxAge: 24 * 60 * 60 * 1000 });
+    res.status(200).json({ message: "Login Successful", user });
 });
 
 authRouter.post("/logout", (req, res) => {
